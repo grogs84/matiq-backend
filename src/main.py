@@ -44,7 +44,13 @@ def health_check(db: Session = Depends(get_db)):
         return {"status": "healthy"}
     except Exception as e:
         return {"status": "unhealthy", "error": str(e)}
-    
+
+
+
+
+
+# this is a test endpoint to check if the person table exists and can be queried
+# for dev only, not for production use
 @app.get("/person_test")
 def test_person(db: Session = Depends(get_db)):
     """Test endpoint for person"""
