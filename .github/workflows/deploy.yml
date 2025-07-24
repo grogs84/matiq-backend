@@ -21,12 +21,10 @@ jobs:
         
     - name: Install dependencies
       run: |
-        cd backend
         pip install -r requirements.txt
         
     - name: Run dummy CI checks
       run: |
-        cd backend
         echo "Running CI checks..."
         python -c "print('✅ Python syntax check passed')"
         python -c "import sys; print(f'✅ Python version: {sys.version}')"
@@ -53,6 +51,5 @@ jobs:
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       run: |
-        cd backend
         railway login --token $RAILWAY_TOKEN
         railway up --service backend
