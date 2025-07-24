@@ -1,40 +1,32 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from .core.config import Settings
+from .core.config import settings
 from .api import api_router
 
-# Create settings instance
-settings = Settings()
-
-# Create FastAPI app
 app = FastAPI(
-    title=settings.app_name,
-    version=settings.version,
-    openapi_url=f"{settings.api_v1_str}/openapi.json"
+    title="Matiq API",
+    description="A modern web application API",
+    version="1.0.0"
 )
 
-# Set up CORS middleware
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.backend_cors_origins,
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Include API router
-app.include_router(api_router, prefix="/api")
+app.include_router(api_router, prefix="/api/v1")
 
-# Root endpoints
 @app.get("/")
 def read_root():
-    return {"message": f"Welcome to {settings.app_name}"}
+    """Root endpoint"""
+    return {"message": "Welcome to Matiq API"}
 
 @app.get("/health")
 def health_check():
+    """Health check endpoint"""
     return {"status": "healthy"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

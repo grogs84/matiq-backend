@@ -1,10 +1,10 @@
-# FastAPI Backend
+# Matiq Backend
 
-This is the backend API for the Matiq web application built with FastAPI.
+A modern FastAPI backend application.
 
 ## Setup
 
-1. Create a virtual environment:
+1. Create virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -15,25 +15,40 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Run the development server:
+3. Run the application:
 ```bash
 python main.py
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at:
+- http://localhost:8000 - API root
+- http://localhost:8000/docs - Interactive API documentation
+- http://localhost:8000/health - Health check endpoint
+
+## Development
+
+The application uses:
+- **FastAPI** - Modern Python web framework
+- **Pydantic** - Data validation and settings
+- **Uvicorn** - ASGI server
+
+## Project Structure
+
+```
+backend/
+├── src/
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── config.py      # Application configuration
+│   ├── __init__.py
+│   └── main.py            # FastAPI application
+├── main.py                # Entry point
+├── requirements.txt       # Dependencies
+└── README.md
+```
 
 ## API Documentation
 
-Once the server is running, you can access:
-- Interactive API docs: `http://localhost:8000/docs`
-- Alternative docs: `http://localhost:8000/redoc`
-
-## Endpoints
-
-- `GET /` - Root endpoint
-- `GET /health` - Health check
-- `GET /api/items` - Get all items
-- `GET /api/items/{id}` - Get item by ID
-- `POST /api/items` - Create new item
-- `PUT /api/items/{id}` - Update item by ID
-- `DELETE /api/items/{id}` - Delete item by ID
+Once the server is running, visit:
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc

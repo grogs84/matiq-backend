@@ -1,12 +1,13 @@
-# Database configuration will go here when needed
-# For now, using in-memory storage
+# Database configuration
+# 
+# This file will contain database setup and connection logic.
+# Example:
+#
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
+# 
+# SQLALCHEMY_DATABASE_URL = "sqlite:///./matiq.db"
+# engine = create_engine(SQLALCHEMY_DATABASE_URL)
+# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class Database:
-    def __init__(self):
-        self.items = []
-    
-    def get_connection(self):
-        # Future: return database connection
-        pass
-
-database = Database()
+# For now, no database is configured
