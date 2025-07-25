@@ -1,8 +1,10 @@
 from fastapi import APIRouter
+from src.routers.search import router as search_router
+
+# Future endpoints will be included here
 
 api_router = APIRouter()
 
-# Future endpoints will be included here
-# Example:
-# from .users import router as users_router
-# api_router.include_router(users_router, prefix="/users", tags=["users"])
+api_router.include_router(
+    search_router, prefix="/search", tags=["search"]
+)   

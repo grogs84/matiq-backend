@@ -5,8 +5,17 @@
 #
 # models/
 # ├── __init__.py
-# ├── user.py          # User database model
-# ├── item.py          # Item database model
-# └── base.py          # Base model class
+# ├── person.py        # Person database model
+# ├── role.py          # Role database model
+# ├── school.py        # School database model
+# ├── tournament.py     # Tournament database model
+# └── participant.py    # Participant database model
 
-__all__ = ["Person"]
+from .person import Person
+from .role import Role
+from .school import School
+from .tournament import Tournament
+from .participant import Participant
+
+
+__all__ = ["Person", "Role", "School", "Tournament", "Participant"]
