@@ -1,5 +1,5 @@
 # Business logic services
-# 
+#
 # This directory contains business logic and service classes.
 # Example structure:
 #

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Union, Optional
+
 
 class TournamentSearchResult(BaseModel):
     tournament_id: str

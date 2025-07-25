@@ -1,11 +1,12 @@
 #      description="API for MatIQ, a wrestling analytics platform",
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
 from sqlalchemy import text
+from sqlalchemy.orm import Session
+
+from .api import api_router
 from .core.config import settings
 from .core.database import get_db
-from .api import api_router
 from .models.person import Person
 
 app = FastAPI(
@@ -13,7 +14,7 @@ app = FastAPI(
     description="API for MatIQ, a wrestling analytics platform",
     version="1.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
 )
 
 print(f"DATABASE_URL: {settings.DATABASE_URL}")
@@ -30,10 +31,12 @@ app.add_middleware(
 # Include API router
 app.include_router(api_router, prefix="/api/v1")
 
+
 @app.get("/")
 def read_root():
     """Root endpoint"""
     return {"message": "Welcome to Matiq API"}
+
 
 @app.get("/health")
 def health_check(db: Session = Depends(get_db)):
@@ -44,9 +47,6 @@ def health_check(db: Session = Depends(get_db)):
         return {"status": "healthy"}
     except Exception as e:
         return {"status": "unhealthy", "error": str(e)}
-
-
-
 
 
 # this is a test endpoint to check if the person table exists and can be queried
@@ -67,10 +67,10 @@ def test_person(db: Session = Depends(get_db)):
                 {
                     "person_id": p.person_id,
                     "first_name": p.first_name,
-                    "last_name": p.last_name
+                    "last_name": p.last_name,
                 }
                 for p in person
-            ]
+            ],
         }
     except Exception as e:
         return {"status": "error", "error": str(e)}

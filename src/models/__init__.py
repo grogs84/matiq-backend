@@ -1,5 +1,5 @@
 # Database models
-# 
+#
 # This directory contains database models and ORM definitions.
 # Example structure:
 #
@@ -11,11 +11,10 @@
 # ├── tournament.py     # Tournament database model
 # └── participant.py    # Participant database model
 
+from .participant import Participant
 from .person import Person
 from .role import Role
 from .school import School
 from .tournament import Tournament
-from .participant import Participant
-
 
 __all__ = ["Person", "Role", "School", "Tournament", "Participant"]

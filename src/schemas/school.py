@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
+
 
 class SchoolBase(BaseModel):
     name: str
@@ -8,11 +10,13 @@ class SchoolBase(BaseModel):
     school_type: Optional[str]
     school_url: Optional[str]
 
+
 class SchoolResponse(SchoolBase):
     school_id: str
-    
+
     class Config:
         from_attributes = True
+
 
 class SchoolSearchResult(BaseModel):
     school_id: str

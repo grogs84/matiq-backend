@@ -1,6 +1,8 @@
-from pydantic import BaseModel
-from typing import Optional
 from datetime import date
+from typing import Optional
+
+from pydantic import BaseModel
+
 
 class PersonBase(BaseModel):
     first_name: str
@@ -10,11 +12,13 @@ class PersonBase(BaseModel):
     city_of_origin: Optional[str]
     state_of_origin: Optional[str]
 
+
 class PersonResponse(PersonBase):
     person_id: str
-    
+
     class Config:
         from_attributes = True
+
 
 class PersonSearchResult(BaseModel):
     person_id: str

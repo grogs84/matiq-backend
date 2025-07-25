@@ -1,5 +1,5 @@
 # Pydantic schemas for request/response models
-# 
+#
 # This directory contains Pydantic models for API serialization.
 # Example structure:
 #

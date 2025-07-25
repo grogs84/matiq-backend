@@ -1,8 +1,10 @@
-from sqlalchemy import Column, String, DateTime, Integer
+from sqlalchemy import Column, DateTime, String
+
 from src.core.database import Base
 
+
 class Person(Base):
-    __tablename__ = 'person'
+    __tablename__ = "person"
 
     person_id = Column(String, primary_key=True)
     first_name = Column(String, nullable=False)
