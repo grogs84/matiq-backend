@@ -9,4 +9,4 @@
 # ├── item.py          # Item database model
 # └── base.py          # Base model class
 
-__all__ = []
+__all__ = ["Person"]

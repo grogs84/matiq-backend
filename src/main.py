@@ -6,7 +6,7 @@ from sqlalchemy import text
 from .core.config import settings
 from .core.database import get_db
 from .api import api_router
-
+from .models.person import Person
 
 app = FastAPI(
     title="MatIQ API",
@@ -55,23 +55,22 @@ def health_check(db: Session = Depends(get_db)):
 def test_person(db: Session = Depends(get_db)):
     """Test endpoint for person"""
     try:
-        # First check if table exists
-        table_check = db.execute(text("SELECT to_regclass('person')"))
-        table_exists = table_check.fetchone()[0] is not None
-        
-        if not table_exists:
-            return {"status": "error", "error": "Table 'person' does not exist"}
-        
-        # Then query the data
-        result = db.execute(text("SELECT p.person_id, p.search_name from person p limit 10"))
-        persons = result.fetchall()
-        
+
+        count = db.query(Person).count()
+
+        person = db.query(Person).limit(5).all()
+
         return {
             "status": "success",
-            "table_exists": table_exists,
-            "count": len(persons),
-            "person_ids": [row[0] for row in persons],
-            "search_names": [row[1] for row in persons]
+            "person_count": count,
+            "persons": [
+                {
+                    "person_id": p.person_id,
+                    "first_name": p.first_name,
+                    "last_name": p.last_name
+                }
+                for p in person
+            ]
         }
     except Exception as e:
         return {"status": "error", "error": str(e)}
