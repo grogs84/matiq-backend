@@ -7,6 +7,7 @@ class School(Base):
     __tablename__ = "school"
 
     school_id = Column(String, primary_key=True)
+    slug = Column(String, unique=True)
     name = Column(String, nullable=False)
     location = Column(String, nullable=True)
     mascot = Column(String, nullable=True)

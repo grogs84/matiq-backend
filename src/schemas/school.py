@@ -13,6 +13,7 @@ class SchoolBase(BaseModel):
 
 class SchoolResponse(SchoolBase):
     school_id: str
+    slug: str
 
     class Config:
         from_attributes = True
@@ -20,6 +21,7 @@ class SchoolResponse(SchoolBase):
 
 class SchoolSearchResult(BaseModel):
     school_id: str
+    slug: str
     name: str
     primary_display: str
     metadata: str

@@ -15,6 +15,7 @@ class PersonBase(BaseModel):
 
 class PersonResponse(PersonBase):
     person_id: str
+    slug: str
 
     class Config:
         from_attributes = True
@@ -22,6 +23,7 @@ class PersonResponse(PersonBase):
 
 class PersonSearchResult(BaseModel):
     person_id: str
+    slug: str
     search_name: str
     primary_display: str
     metadata: str

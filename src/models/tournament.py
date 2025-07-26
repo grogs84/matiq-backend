@@ -7,6 +7,7 @@ class Tournament(Base):
     __tablename__ = "tournament"
 
     tournament_id = Column(String, primary_key=True)
+    slug = Column(String, unique=True)
     name = Column(String, nullable=False)
     date = Column(Date, nullable=False)
     year = Column(Integer, nullable=True)

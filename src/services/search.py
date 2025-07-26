@@ -33,6 +33,7 @@ class SearchService:
         person_subquery = (
             db.query(
                 Person.person_id,
+                Person.slug,
                 Person.search_name,
                 Role.role_type,
                 Participant.year,
@@ -52,6 +53,7 @@ class SearchService:
         results = (
             db.query(
                 person_subquery.c.person_id,
+                person_subquery.c.slug,
                 person_subquery.c.search_name,
                 person_subquery.c.role_type,
                 person_subquery.c.year,
@@ -84,6 +86,7 @@ class SearchService:
                     search_name=result.search_name,
                     primary_display=result.search_name,
                     metadata=metadata,
+                    slug=result.slug,
                 )
             )
 
@@ -114,6 +117,7 @@ class SearchService:
                     name=school.name,
                     primary_display=school.name,
                     metadata=" • ".join(metadata_parts) if metadata_parts else "School",
+                    slug=school.slug if hasattr(school, 'slug') else "unknown_slug"
                 )
             )
 
@@ -149,6 +153,7 @@ class SearchService:
                     metadata=(
                         " • ".join(metadata_parts) if metadata_parts else "Tournament"
                     ),
+                    slug=tournament.slug if hasattr(tournament, 'slug') else "unknown_slug"
                 )
             )
 

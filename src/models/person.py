@@ -7,6 +7,7 @@ class Person(Base):
     __tablename__ = "person"
 
     person_id = Column(String, primary_key=True)
+    slug = Column(String, unique=True) 
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     search_name = Column(String, nullable=True)
