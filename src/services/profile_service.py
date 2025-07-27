@@ -196,7 +196,7 @@ class PersonService:
             }
         
         # Build base query
-        base_query = "SELECT * FROM wrestler_match_history WHERE slug = :slug"
+        base_query = "SELECT * FROM wrestler_match_history WHERE wrestler_slug = :slug"
         params = {"slug": slug}
         
         # Add filters
