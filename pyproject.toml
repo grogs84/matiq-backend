@@ -35,8 +35,19 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short --strict-markers --strict-config"
 asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+    "ignore:.*declarative_base.*:sqlalchemy.exc.MovedIn20Warning",
+    "ignore:.*class-based.*config.*:pydantic._internal._config.PydanticDeprecatedSince20",
+]
 
 [tool.coverage.run]
 source = ["src"]
