@@ -13,7 +13,7 @@ fi
 
 # Install test dependencies if needed
 echo "📦 Installing test dependencies..."
-pip install pytest pytest-asyncio httpx > /dev/null 2>&1
+pip install -r requirements-dev.txt > /dev/null 2>&1
 
 echo ""
 echo "🔬 Running API Endpoint Tests..."
