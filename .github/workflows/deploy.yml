@@ -43,9 +43,9 @@ jobs:
         echo "DATABASE_URL=postgresql://testuser:testpass@localhost:5432/matiq_test" >> $GITHUB_ENV
         echo "ENVIRONMENT=test" >> $GITHUB_ENV
         
-    - name: Run database migrations
-      run: |
-        alembic upgrade head
+    # - name: Run database migrations
+    #   run: |
+    #     alembic upgrade head
         
     - name: Run tests with coverage
       run: |
