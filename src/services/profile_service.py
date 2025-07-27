@@ -68,7 +68,7 @@ class PersonService:
             with match_history as (
               select *
               from wrestler_match_history mh
-              where mh.slug = :slug
+              where mh.wrestler_slug = :slug
             ),
             last_match AS (
               SELECT DISTINCT ON (year, weight_class)
