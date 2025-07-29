@@ -50,7 +50,8 @@ class PersonProfileResponse(BaseModel):
     city_of_origin: Optional[str] = None
     state_of_origin: Optional[str] = None
     roles: List[RoleResponse] = []
-    
+    school: str  # List of school names
+
     class Config:
         from_attributes = True
 

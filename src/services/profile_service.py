@@ -21,7 +21,16 @@ class PersonService:
         
         # Query for the person's roles
         roles = db.query(Role).filter(Role.person_id == person.person_id).all()
-        
+
+        # Query for the person's distinct schools
+        schools = (
+            db.query(School)
+            .join(Participant, School.school_id == Participant.school_id)
+            .join(Role, Participant.role_id == Role.role_id)
+            .filter(Role.person_id == person.person_id)
+            .distinct()
+            .all()
+        )
         # Return person data with roles
         return {
             "person_id": person.person_id,
@@ -33,7 +42,8 @@ class PersonService:
             "date_of_birth": getattr(person, "date_of_birth", None),
             "city_of_origin": getattr(person, "city_of_origin", None),
             "state_of_origin": getattr(person, "state_of_origin", None),
-            "roles": [{"role_id": role.role_id, "role_type": role.role_type} for role in roles]
+            "roles": [{"role_id": role.role_id, "role_type": role.role_type} for role in roles],
+            "school": schools[0].name if schools else "Unknown",
         }
         
     @staticmethod
@@ -83,20 +93,23 @@ class PersonService:
               SELECT
                 participant.year,
                 participant.weight_class,
+                school.name AS school,
                 COUNT(m.match_id) AS matches,
                 SUM(pm.is_winner::int) AS wins
               FROM person
               JOIN role ON role.person_id = person.person_id
               JOIN participant ON participant.role_id = role.role_id
+              JOIN school ON school.school_id = participant.school_id
               JOIN participant_match pm ON pm.participant_id = participant.participant_id
               JOIN match m ON pm.match_id = m.match_id
               WHERE person.slug = :slug
-              GROUP BY participant.year, participant.weight_class
+              GROUP BY participant.year, participant.weight_class, school.name
             ),
             year_level as (
             SELECT
               s.year,
               s.weight_class::int,
+              s.school,
               s.matches,
               s.wins,
               CASE
@@ -112,7 +125,7 @@ class PersonService:
             ORDER BY s.year, s.weight_class
             )
 
-            select year, weight_class, wins, placement
+            select year, weight_class, school, wins, placement
             from year_level
             """),
             {"slug": slug}
@@ -123,6 +136,7 @@ class PersonService:
         for stat in yearly_stats:
             stats_list.append({
                 "year": stat.year,
+                "school": stat.school,
                 "weight_class": stat.weight_class,
                 "wins": stat.wins,
                 "placement": stat.placement

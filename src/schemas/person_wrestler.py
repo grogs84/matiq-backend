@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 class WrestlerYearlyStats(BaseModel):
     year: int
+    school: str
     weight_class: int  # Using int since your query casts it to int
     wins: int
     placement: Optional[int] = None  # Can be null
