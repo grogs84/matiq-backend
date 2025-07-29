@@ -68,7 +68,7 @@ class PersonService:
             with match_history as (
               select *
               from wrestler_match_history mh
-              where mh.wrestler_slug = :slug
+              where mh.slug = :slug
             ),
             last_match AS (
               SELECT DISTINCT ON (year, weight_class)
@@ -196,7 +196,7 @@ class PersonService:
             }
         
         # Build base query
-        base_query = "SELECT * FROM wrestler_match_history WHERE wrestler_slug = :slug"
+        base_query = "SELECT * FROM wrestler_match_history WHERE slug = :slug"
         params = {"slug": slug}
         
         # Add filters
