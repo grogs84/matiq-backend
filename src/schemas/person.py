@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PersonBase(BaseModel):
@@ -11,6 +11,26 @@ class PersonBase(BaseModel):
     date_of_birth: Optional[date]
     city_of_origin: Optional[str]
     state_of_origin: Optional[str]
+
+
+class PersonCreate(PersonBase):
+    """Schema for creating a new person."""
+    first_name: str = Field(..., min_length=1, max_length=100)
+    last_name: str = Field(..., min_length=1, max_length=100)
+    search_name: Optional[str] = Field(None, max_length=200)
+    date_of_birth: Optional[date] = None
+    city_of_origin: Optional[str] = Field(None, max_length=100)
+    state_of_origin: Optional[str] = Field(None, max_length=2)
+
+
+class PersonUpdate(BaseModel):
+    """Schema for updating person information."""
+    first_name: Optional[str] = Field(None, min_length=1, max_length=100)
+    last_name: Optional[str] = Field(None, min_length=1, max_length=100)
+    search_name: Optional[str] = Field(None, max_length=200)
+    date_of_birth: Optional[date] = None
+    city_of_origin: Optional[str] = Field(None, max_length=100)
+    state_of_origin: Optional[str] = Field(None, max_length=2)
 
 
 class PersonResponse(PersonBase):
@@ -37,6 +57,16 @@ class RoleResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+
+class RoleCreate(BaseModel):
+    """Schema for creating a role assignment."""
+    person_id: str = Field(..., description="Person ID to assign role to")
+    role_type: str = Field(
+        ..., 
+        description="Type of role", 
+        pattern="^(wrestler|coach|admin|moderator|editor)$"
+    )
 
 
 class PersonProfileResponse(BaseModel):
