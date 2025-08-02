@@ -23,6 +23,7 @@ class Settings:
         "SUPABASE_URL", "https://your-supabase-url.supabase.co"
     )
     SUPABASE_KEY: str = os.getenv("SUPABASE_KEY", "your-supabase-anon-key")
+    SUPABASE_SERVICE_ROLE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "your-supabase-service-role-key")
     SUPABASE_JWT_SECRET: str = os.getenv("SUPABASE_JWT_SECRET", "your-supabase-jwt-secret")
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
 
